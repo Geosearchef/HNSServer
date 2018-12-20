@@ -1,4 +1,4 @@
-package de.geosearchef.hnsserver;
+package de.geosearchef.hnsserver.data;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -7,8 +7,8 @@ import java.util.Arrays;
 
 @RequiredArgsConstructor
 @Getter
-public enum PlayerType {
-	HIDER("h"), SEEKER("s");
+public enum LocationType {
+	HIDER("h"), SEEKER("s");//fake point, resource, ....
 
 	private final String key;
 

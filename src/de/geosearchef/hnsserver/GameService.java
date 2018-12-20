@@ -1,5 +1,6 @@
 package de.geosearchef.hnsserver;
 
+import de.geosearchef.hnsserver.data.*;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;
@@ -65,9 +66,8 @@ public class GameService {
 
 
 	public synchronized void updateLocation(Player player, Location location) {
-		player.getGame().map(Game::getPlayerLocations).ifPresent(l -> l.put(player, location));
+		player.getGame().map(Game::getLocations).ifPresent(l -> l.put(player, location));
 	}
-
 
 	private synchronized int getRandomKey() {
 		while(true) {

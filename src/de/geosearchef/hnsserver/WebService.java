@@ -1,12 +1,15 @@
 package de.geosearchef.hnsserver;
 
 import com.google.gson.Gson;
+import de.geosearchef.hnsserver.data.*;
 import de.geosearchef.hnsserver.responses.JoinResponse;
+import de.geosearchef.hnsserver.responses.PositionsResponse;
 import de.geosearchef.hnsserver.responses.RegisterResponse;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import spark.Request;
 
+import java.util.HashMap;
 import java.util.Optional;
 
 import static de.geosearchef.hnsserver.HNSServer.gameService;
@@ -94,7 +97,7 @@ public class WebService {
 
 			res.status(200);
 			return res;
-		}, gson::toJson);
+		});
 
 
 		post("/ownPosition", (req, res) -> {
@@ -105,11 +108,26 @@ public class WebService {
 			}
 
 			Location location = gson.fromJson(req.body(), Location.class);
+			gameService.updateLocation(player, location);
 
 			return res;
 		});
 
+		get("/positions", (req, res) -> {
+			Player player = getPlayerFromRequest(req);
+			if(player == null) {
+				res.status(403);
+				return res;
+			}
 
+			if(! player.getGame().isPresent()) {
+				res.status(404);
+				return res;
+			}
+			Game game = player.getGame().get();
+
+			return new PositionsResponse(new HashMap<>(game.getLocations()), game.getNextRevealTime(), game.getGameEndTime(), System.currentTimeMillis());
+		}, gson::toJson);
 	}
 
 
