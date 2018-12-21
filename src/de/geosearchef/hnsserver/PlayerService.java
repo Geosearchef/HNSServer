@@ -26,9 +26,9 @@ public class PlayerService {
 			return null;
 		}
 
-		Optional<Player> alreadyConnectedPlayer = players.stream().filter(p -> p.getUuid() == uuid && p.getName().equals(name)).findFirst();
+		Optional<Player> alreadyConnectedPlayer = players.stream().filter(p -> p.getUuid().equals(uuid) && p.getName().equals(name)).findFirst();
 		if(alreadyConnectedPlayer.isPresent()) {
-			log.warn("Username {}, uuid {} reconnected", uuid, name);
+			log.warn("Username {}, uuid {} reconnected", name, uuid);
 			gameService.leaveGame(alreadyConnectedPlayer.get());
 			return alreadyConnectedPlayer.get();
 		}
@@ -36,6 +36,8 @@ public class PlayerService {
 		Player player = new Player(ID_FACTORY++, uuid, name);
 
 		players.add(player);
+
+		log.info("Player {}, {} connected with uuid {}", player.getId(), player.getName(), player.getUuid());
 
 		return player;
 	}

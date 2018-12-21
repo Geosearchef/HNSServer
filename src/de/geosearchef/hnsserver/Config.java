@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class Config {
 
+	private final int PORT;
 	private final int LOCATION_UPDATE_INTERVAL;
 
 	public static Config INSTANCE;

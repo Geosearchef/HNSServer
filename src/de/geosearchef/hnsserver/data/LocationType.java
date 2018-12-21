@@ -12,7 +12,7 @@ public enum LocationType {
 
 	private final String key;
 
-	public static PlayerType fromKey(String k) {
-		return Arrays.stream(PlayerType.values()).filter(t -> t.getKey().equals(k)).findAny().orElse(null);
+	public static LocationType fromKey(String k) {
+		return Arrays.stream(LocationType.values()).filter(t -> t.getKey().equals(k)).findAny().orElse(null);
 	}
 }

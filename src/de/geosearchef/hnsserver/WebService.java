@@ -9,13 +9,12 @@ import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import spark.Request;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import static de.geosearchef.hnsserver.HNSServer.gameService;
 import static de.geosearchef.hnsserver.HNSServer.playerService;
-import static spark.Spark.get;
-import static spark.Spark.post;
+import static spark.Spark.*;
 
 @Slf4j
 public class WebService {
@@ -23,9 +22,15 @@ public class WebService {
 	private Gson gson = new Gson();
 
 	public WebService() {
+		port(Config.INSTANCE.getPORT());
+
+		exception(Exception.class, (exception, request, response) -> {
+			exception.printStackTrace();
+			response.status(500);
+		});
+
 		get("/echo", (req, res) -> {
-			res.body("echo");
-			return res;
+			return "echo";
 		});
 
 		post("/register", (req, res) -> {
@@ -104,13 +109,14 @@ public class WebService {
 			Player player = getPlayerFromRequest(req);
 			if(player == null) {
 				res.status(403);
-				return res;
+				return null;
 			}
 
 			Location location = gson.fromJson(req.body(), Location.class);
+			location.setLocationType(LocationType.fromKey(player.getPlayerType().getKey()));
 			gameService.updateLocation(player, location);
 
-			return res;
+			return null;
 		});
 
 		get("/positions", (req, res) -> {
@@ -126,8 +132,11 @@ public class WebService {
 			}
 			Game game = player.getGame().get();
 
-			return new PositionsResponse(new HashMap<>(game.getLocations()), game.getNextRevealTime(), game.getGameEndTime(), System.currentTimeMillis());
+			return new PositionsResponse(new ArrayList(game.getLocations()), game.getNextRevealTime(), game.getGameEndTime(), System.currentTimeMillis());
 		}, gson::toJson);
+
+
+		log.info("WebService started on port {}", Config.INSTANCE.getPORT());
 	}
 
 
@@ -147,7 +156,7 @@ public class WebService {
 		player = playerService.getPlayer(id);
 
 		if(! player.isPresent()) {
-			log.error("Not player found for id {}", id);
+			log.error("No player found for id {}", id);
 			return null;
 		}
 

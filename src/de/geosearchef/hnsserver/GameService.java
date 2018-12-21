@@ -36,6 +36,8 @@ public class GameService {
 		player.setPlayerType(playerType);
 		player.setGame(Optional.of(game));
 
+		log.info("Created game {}, {}", game.getId(), game.getTitle());
+
 		return game;
 	}
 
@@ -61,12 +63,18 @@ public class GameService {
 		player.getGame().ifPresent(game -> {
 			game.getPlayers().remove(player);
 			player.setGame(Optional.empty());
+
+			if(game.getPlayers().isEmpty()) {
+				games.remove(game);
+				log.info("Closed game {}, {} due to last player leaving", game.getId(), game.getTitle());
+			}
 		});
 	}
 
 
 	public synchronized void updateLocation(Player player, Location location) {
-		player.getGame().map(Game::getLocations).ifPresent(l -> l.put(player, location));
+		log.info("Received location from player {}, {}", player.getId(), player.getName());
+		player.getGame().ifPresent(game -> game.addLocation(location, player));
 	}
 
 	private synchronized int getRandomKey() {

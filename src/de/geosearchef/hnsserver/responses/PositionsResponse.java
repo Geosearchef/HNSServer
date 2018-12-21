@@ -1,17 +1,16 @@
 package de.geosearchef.hnsserver.responses;
 
-import de.geosearchef.hnsserver.data.Location;
-import de.geosearchef.hnsserver.data.LocationSubject;
+import de.geosearchef.hnsserver.data.TimedLocation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
-import java.util.Map;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Getter
 public class PositionsResponse {
 
-	private final Map<LocationSubject, Location> locations;
+	private final List<TimedLocation> locations;
 	private final long nextRevealTime;
 	private final long gameEndTime;
 
