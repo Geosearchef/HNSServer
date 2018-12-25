@@ -1,5 +1,6 @@
-package de.geosearchef.hnsserver.data;
+package de.geosearchef.hns.data;
 
+import de.geosearchef.hnsserver.Game;
 import lombok.Data;
 
 import java.util.Optional;

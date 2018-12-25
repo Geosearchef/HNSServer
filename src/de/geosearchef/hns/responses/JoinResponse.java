@@ -1,6 +1,6 @@
-package de.geosearchef.hnsserver.responses;
+package de.geosearchef.hns.responses;
 
-import de.geosearchef.hnsserver.data.GameConfig;
+import de.geosearchef.hns.data.GameConfig;
 import lombok.Data;
 
 @Data

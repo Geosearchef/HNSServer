@@ -1,4 +1,4 @@
-package de.geosearchef.hnsserver.data;
+package de.geosearchef.hns.data;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

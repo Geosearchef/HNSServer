@@ -1,4 +1,4 @@
-package de.geosearchef.hnsserver.responses;
+package de.geosearchef.hns.responses;
 
 import lombok.Data;
 

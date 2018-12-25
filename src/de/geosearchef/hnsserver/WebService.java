@@ -1,10 +1,10 @@
 package de.geosearchef.hnsserver;
 
 import com.google.gson.Gson;
-import de.geosearchef.hnsserver.data.*;
-import de.geosearchef.hnsserver.responses.JoinResponse;
-import de.geosearchef.hnsserver.responses.PositionsResponse;
-import de.geosearchef.hnsserver.responses.RegisterResponse;
+import de.geosearchef.hns.data.*;
+import de.geosearchef.hns.responses.JoinResponse;
+import de.geosearchef.hns.responses.PositionsResponse;
+import de.geosearchef.hns.responses.RegisterResponse;
 import lombok.extern.slf4j.Slf4j;
 import lombok.var;
 import spark.Request;

@@ -1,5 +1,6 @@
-package de.geosearchef.hnsserver.data;
+package de.geosearchef.hnsserver;
 
+import de.geosearchef.hns.data.*;
 import lombok.Data;
 
 import java.util.ArrayList;

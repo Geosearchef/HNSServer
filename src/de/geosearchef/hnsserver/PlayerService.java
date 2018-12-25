@@ -1,6 +1,6 @@
 package de.geosearchef.hnsserver;
 
-import de.geosearchef.hnsserver.data.Player;
+import de.geosearchef.hns.data.Player;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

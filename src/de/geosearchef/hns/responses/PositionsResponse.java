@@ -1,6 +1,6 @@
-package de.geosearchef.hnsserver.responses;
+package de.geosearchef.hns.responses;
 
-import de.geosearchef.hnsserver.data.TimedLocation;
+import de.geosearchef.hns.data.TimedLocation;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
