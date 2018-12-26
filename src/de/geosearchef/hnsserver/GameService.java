@@ -36,7 +36,8 @@ public class GameService {
 		player.setPlayerType(playerType);
 		player.setGame(Optional.of(game));
 
-		log.info("Created game {}, {}", game.getId(), game.getTitle());
+		games.add(game);
+		log.info("Created game {}, {}, key: {}", game.getId(), game.getTitle(), game.getKey());
 
 		return game;
 	}

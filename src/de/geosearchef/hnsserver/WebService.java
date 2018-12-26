@@ -34,7 +34,7 @@ public class WebService {
 		});
 
 		post("/register", (req, res) -> {
-			Player player = playerService.onConnect(req.queryParams("uuid"), req.queryParams("name"));
+			Player player = playerService.onConnect(req.queryParams("uuid"), req.queryParams("username"));
 			if(player != null) {
 				return new RegisterResponse(player.getId());
 			} else {
