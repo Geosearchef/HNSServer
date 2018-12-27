@@ -15,4 +15,9 @@ public class Player implements LocationSubject {
 	private long lastRequest = System.currentTimeMillis();
 	private Optional<Game> game = Optional.empty();
 	private PlayerType playerType;
+
+	@Override
+	public String getDisplayedName() {
+		return name;
+	}
 }

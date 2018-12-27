@@ -21,6 +21,8 @@ public class WebService {
 
 	private Gson gson = new Gson();
 
+	private static String EMPTY_RESPONSE = "{}";
+
 	public WebService() {
 		port(Config.INSTANCE.getPORT());
 
@@ -39,7 +41,7 @@ public class WebService {
 				return new RegisterResponse(player.getId());
 			} else {
 				res.status(403);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 		}, gson::toJson);
 
@@ -47,13 +49,13 @@ public class WebService {
 			Player player = getPlayerFromRequest(req);
 			if(player == null) {
 				res.status(403);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 
 			PlayerType playerType = PlayerType.fromKey(req.queryParams("playerType"));
 			if(playerType == null) {
 				res.status(403);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 
 			var gameOptions = gson.fromJson(req.body(), GameOptions.class);
@@ -64,7 +66,7 @@ public class WebService {
 				return new JoinResponse(game.getTitle(), game.getKey(), game.getGameConfig());
 			} else {
 				res.status(404);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 		}, gson::toJson);
 
@@ -72,13 +74,13 @@ public class WebService {
 			Player player = getPlayerFromRequest(req);
 			if(player == null) {
 				res.status(403);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 
 			PlayerType playerType = PlayerType.fromKey(req.queryParams("playerType"));
 			if(playerType == null) {
 				res.status(403);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 
 			Game game = gameService.joinGame(player, Integer.parseInt(req.queryParams("key")), playerType);//TODO: is throwing a number format exception a problem?
@@ -87,7 +89,7 @@ public class WebService {
 				return new JoinResponse(game.getTitle(), game.getKey(), game.getGameConfig());
 			} else {
 				res.status(404);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 		}, gson::toJson);
 
@@ -95,13 +97,13 @@ public class WebService {
 			Player player = getPlayerFromRequest(req);
 			if(player == null) {
 				res.status(403);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 
 			gameService.leaveGame(player);
 
 			res.status(200);
-			return res;
+			return EMPTY_RESPONSE;
 		});
 
 
@@ -109,26 +111,26 @@ public class WebService {
 			Player player = getPlayerFromRequest(req);
 			if(player == null) {
 				res.status(403);
-				return null;
+				return EMPTY_RESPONSE;
 			}
 
 			Location location = gson.fromJson(req.body(), Location.class);
 			location.setLocationType(LocationType.fromKey(player.getPlayerType().getKey()));
 			gameService.updateLocation(player, location);
 
-			return null;
+			return EMPTY_RESPONSE;
 		});
 
 		get("/positions", (req, res) -> {
 			Player player = getPlayerFromRequest(req);
 			if(player == null) {
 				res.status(403);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 
 			if(! player.getGame().isPresent()) {
 				res.status(404);
-				return res;
+				return EMPTY_RESPONSE;
 			}
 			Game game = player.getGame().get();
 
