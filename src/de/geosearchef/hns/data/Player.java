@@ -16,8 +16,14 @@ public class Player implements LocationSubject {
 	private Optional<Game> game = Optional.empty();
 	private PlayerType playerType;
 
+	private String phantomName = "";
+
 	@Override
 	public String getDisplayedName() {
-		return name;
+		if(playerType == PlayerType.PHANTOM) {
+			return phantomName;
+		} else {
+			return name;
+		}
 	}
 }

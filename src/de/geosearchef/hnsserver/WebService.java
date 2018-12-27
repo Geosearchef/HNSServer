@@ -114,6 +114,10 @@ public class WebService {
 				return EMPTY_RESPONSE;
 			}
 
+			if(req.queryParams().contains("phantomName")) {
+				player.setPhantomName(req.queryParams("phantomName"));
+			}
+
 			Location location = gson.fromJson(req.body(), Location.class);
 			location.setLocationType(LocationType.fromKey(player.getPlayerType().getKey()));
 			gameService.updateLocation(player, location);

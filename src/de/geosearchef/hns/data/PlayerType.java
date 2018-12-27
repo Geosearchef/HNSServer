@@ -8,7 +8,7 @@ import java.util.Arrays;
 @RequiredArgsConstructor
 @Getter
 public enum PlayerType {
-	HIDER("h"), SEEKER("s");
+	HIDER("h"), SEEKER("s"), PHANTOM("p");
 
 	private final String key;
 
