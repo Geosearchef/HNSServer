@@ -41,7 +41,7 @@ public class Game {
 		locations.add(newLocation);
 
 		//TODO
-		if(locationSubject instanceof Player && ((Player)locationSubject).getPlayerType() == PlayerType.SEEKER) {
+		if(locationSubject instanceof Player && ((Player)locationSubject).getPlayerType() != PlayerType.HIDER) {
 			newLocation.setRevealed(true);
 			//TODO: remove old locations
 		}

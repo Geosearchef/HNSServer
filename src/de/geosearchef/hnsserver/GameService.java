@@ -74,7 +74,7 @@ public class GameService {
 
 
 	public synchronized void updateLocation(Player player, Location location) {
-		log.info("Received location from player {}, {}", player.getId(), player.getName());
+		log.info("Received location from player {}, {}: {},{}", player.getId(), player.getName(), location.getLatitude(), location.getLongitude());
 		player.getGame().ifPresent(game -> game.addLocation(location, player));
 	}
 
